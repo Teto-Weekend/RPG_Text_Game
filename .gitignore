@@ -1,41 +1,40 @@
-# Prerequisites
-*.d
+# Visual Studio 一般的な不要ファイル
+*.suo
+*.user
+*.cache
+*.ipch
+*.aps
+*.ncb
+*.opendb
+*.VC.db
+*.vsidx
+DocumentLayout.json
+DocumentLayout.backup.json
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# SQLite の一時ファイルは無視する
+*.db-shm
+*.db-wal
+
+# ビルド生成物
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
 *.exe
-*.out
-*.app
+*.pdb
+*.ilk
+*.idb
+*.log
+*.tlog
+*.lastbuildstate
+*.recipe
 
-# debug information files
-*.dwo
+# ユーザー固有のプロジェクト設定ファイル
+*.vcxproj.user
+
+# ビルド出力ディレクトリ
+x64/
+**/x64/
+Debug/
+**/Debug/
+Release/
+**/Release/
+
+.vs/
