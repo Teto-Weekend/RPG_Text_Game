@@ -17,6 +17,7 @@ int main()
         Yuusha.attackTo(Slime);
         std::cout << std::endl;
         Slime.attackTo(Yuusha);
+        std::cout << std::endl;
     }
 
     

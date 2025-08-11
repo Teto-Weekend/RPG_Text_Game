@@ -1,11 +1,11 @@
 #include "character.h"
 
 /* コンストラクタ */
-CharacterClass::CharacterClass(std::string init_name, int init_hp, int init_attack, int init_defence) {
+CharacterClass::CharacterClass(std::string init_name, int init_hp, int init_attack, int init_defense) {
 	setName(init_name);					// キャラクター名を初期化
 	setHp(init_hp);						// HP の初期化
 	setAttack(init_attack);				// 攻撃力の初期化
-	setDefense(init_defence);			// 防御力の初期化
+	setDefense(init_defense);			// 防御力の初期化
 }
 
 /* デストラクタ */
@@ -58,22 +58,22 @@ void CharacterClass::showStatus() const {
 
 int	 CharacterClass::calcDamage(const CharacterClass& target) const {
 	int damage = this->getAttack() - target.getDefense();
-	return damage > 0 ? damage : MIN_ATTACK;
+	return damage > 0 ? damage : kMinAttack;
 }
 
 void CharacterClass::attackTo(CharacterClass& target) {
-	if (this->getHp() > 0) {
-		int damage = this->calcDamage(target);
-		int hitpoint = target.getHp() - damage;
-		if (hitpoint <= 0) {
-			hitpoint = 0;
-		}
-		target.setHp(hitpoint);
-		std::cout << this->getName() << "の攻撃！ " << target.getName() << "に" << damage << "のダメージ" << std::endl;
-		std::cout << target.getName() << "の残りHP: " << target.getHp() << std::endl;
-		if (target.getHp() <= 0) {
-			std::cout << this->getName() << "は" << target.getName() << "を倒した！" << std::endl;
-		}
+	if (this->getHp() <= 0) return;
+
+	int damage = this->calcDamage(target);
+	int hitpoint = target.getHp() - damage;
+	if (hitpoint <= 0) {
+		hitpoint = 0;
+	}
+	target.setHp(hitpoint);
+	std::cout << this->getName() << "の攻撃！ " << target.getName() << "に" << damage << "のダメージ" << std::endl;
+	std::cout << target.getName() << "の残りHP: " << target.getHp() << std::endl;
+	if (target.getHp() <= 0) {
+		std::cout << this->getName() << "は" << target.getName() << "を倒した！" << std::endl;
 	}
 }
 

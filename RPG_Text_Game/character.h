@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-constexpr int MIN_ATTACK = 1;
+constexpr int kMinAttack = 1;
 
 class CharacterClass {
 public:
