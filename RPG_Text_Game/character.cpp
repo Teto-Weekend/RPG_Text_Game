@@ -37,7 +37,8 @@ void CharacterClass::setName(const std::string& update_name) {
 }
 // HPを設定
 void CharacterClass::setHp(int update_hp) {
-	hp = update_hp;
+	// update_hpが0以下ならば0を返す
+	hp = std::max(0, update_hp);
 }
 // 攻撃力を設定
 void CharacterClass::setAttack(int update_attack) {
@@ -48,32 +49,40 @@ void CharacterClass::setDefense(int update_defense) {
 	defense = update_defense;
 }
 
-
+// ステータス表示
 void CharacterClass::showStatus() const {
-	std::cout << "NAME	: "		<< this->getName()		<< std::endl;
-	std::cout << "HP	: "		<< this->getHp()		<< std::endl;
-	std::cout << "ATTACK	: " << this->getAttack()	<< std::endl;
-	std::cout << "DEFENSE	: " << this->getDefense()	<< std::endl;
+	std::cout << "NAME	: "		<< getName()		<< std::endl;
+	std::cout << "HP	: "		<< getHp()		<< std::endl;
+	std::cout << "ATTACK	: " << getAttack()	<< std::endl;
+	std::cout << "DEFENSE	: " << getDefense()	<< std::endl;
 }
 
+// 生存状態を判定する
+// true : 戦闘不能
+// false: 戦闘可能
+bool CharacterClass::isKnockedOut() const {
+	return getHp() <= 0;
+}
+
+// ダメージ量を計算
 int	 CharacterClass::calcDamage(const CharacterClass& target) const {
-	int damage = this->getAttack() - target.getDefense();
+	int damage = getAttack() - target.getDefense();
 	return damage > 0 ? damage : kMinAttack;
 }
 
+// ターゲットに攻撃を与える
 void CharacterClass::attackTo(CharacterClass& target) {
-	if (this->getHp() <= 0) return;
+	// 生存状態を確認 
+	if (isKnockedOut()) return;
 
-	int damage = this->calcDamage(target);
-	int hitpoint = target.getHp() - damage;
-	if (hitpoint <= 0) {
-		hitpoint = 0;
-	}
-	target.setHp(hitpoint);
-	std::cout << this->getName() << "の攻撃！ " << target.getName() << "に" << damage << "のダメージ" << std::endl;
-	std::cout << target.getName() << "の残りHP: " << target.getHp() << std::endl;
-	if (target.getHp() <= 0) {
-		std::cout << this->getName() << "は" << target.getName() << "を倒した！" << std::endl;
+	int damage = calcDamage(target);
+	target.setHp(target.getHp() - damage);
+
+	std::cout << getName()	<< "の攻撃！ "	<< target.getName()		<< "に" << damage	<< "のダメージ" << std::endl;
+	std::cout << target.getName()	<< "の残りHP: "	<< target.getHp()	<< std::endl;
+
+	if (target.isKnockedOut()) {
+		std::cout << getName()	<< "は"	<< target.getName()	<< "を倒した！"	<< std::endl;
 	}
 }
 

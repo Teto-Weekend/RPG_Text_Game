@@ -12,15 +12,15 @@ int main()
     Yuusha.showStatus();
     std::cout << "---------------" << std::endl;
     Slime.showStatus();
+    std::cout << "---------------" << std::endl;
+    std::cout << std::endl;
 
-    while (Yuusha.getHp() > 0 && Slime.getHp() > 0) {
+    while ((!Yuusha.isKnockedOut()) && (!Slime.isKnockedOut())) {
         Yuusha.attackTo(Slime);
         std::cout << std::endl;
         Slime.attackTo(Yuusha);
         std::cout << std::endl;
     }
-
-    
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
