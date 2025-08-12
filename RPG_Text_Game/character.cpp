@@ -14,7 +14,7 @@ CharacterClass::~CharacterClass() {
 
 /* Getter */
 // キャラクター名を取得
-std::string CharacterClass::getName(void) const {
+const std::string& CharacterClass::getName(void) const {
 	return name;
 }
 // HPを取得
@@ -61,7 +61,7 @@ void CharacterClass::showStatus() const {
 // true : 戦闘不能
 // false: 戦闘可能
 bool CharacterClass::isKnockedOut() const {
-	return getHp() <= 0;
+	return hp <= 0;
 }
 
 // ダメージ量を計算
@@ -74,15 +74,21 @@ int	 CharacterClass::calcDamage(const CharacterClass& target) const {
 void CharacterClass::attackTo(CharacterClass& target) {
 	// 生存状態を確認 
 	if (isKnockedOut()) return;
+	int targetHp   = target.getHp();
+	const std::string& targetName = target.getName();
+	const std::string& myName	  = getName();
 
 	int damage = calcDamage(target);
-	target.setHp(target.getHp() - damage);
+	target.setHp(targetHp - damage);
+	
+	// 更新後のHPを取得
+	int update_targetHp = target.getHp(); 
 
-	std::cout << getName()	<< "の攻撃！ "	<< target.getName()		<< "に" << damage	<< "のダメージ" << std::endl;
-	std::cout << target.getName()	<< "の残りHP: "	<< target.getHp()	<< std::endl;
+	std::cout << myName << "の攻撃！ "	<< targetName << "に" << damage	<< "のダメージ" << std::endl;
+	std::cout << targetName << "の残りHP: "	<< update_targetHp << std::endl;
 
 	if (target.isKnockedOut()) {
-		std::cout << getName()	<< "は"	<< target.getName()	<< "を倒した！"	<< std::endl;
+		std::cout << myName << "は"	<< targetName << "を倒した！"	<< std::endl;
 	}
 }
 

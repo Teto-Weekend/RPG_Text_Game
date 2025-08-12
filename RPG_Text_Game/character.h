@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 class CharacterClass {
 public:
@@ -11,7 +12,7 @@ public:
 	static constexpr int kMinAttack = 1;
 
 	// Getter
-	std::string getName(void)const;
+	const std::string& getName(void)const;
 	int getHp(void)const;				
 	int getAttack(void)const;
 	int getDefense(void)const;
