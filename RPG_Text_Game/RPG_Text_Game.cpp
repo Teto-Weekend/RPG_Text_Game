@@ -1,13 +1,12 @@
 ﻿// RPG_GAME.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
 //
 
-#include <iostream>
 #include "character.h"
 
 int main()
 {
-    CharacterClass Yuusha("勇者", 30, 8, 3);
-    CharacterClass Slime("スライム", 10, 5, 1);
+    CharacterClass Yuusha("勇者", 30, 5, 3);
+    CharacterClass Slime("スライム", 10, 6, 1);
 
     Yuusha.showStatus();
     std::cout << "---------------" << std::endl;
@@ -15,10 +14,23 @@ int main()
     std::cout << "---------------" << std::endl;
     std::cout << std::endl;
 
+    int command;
+
     while ((!Yuusha.isKnockedOut()) && (!Slime.isKnockedOut())) {
-        Yuusha.attackTo(Slime);
+        std::cout << "攻撃:1" << std::endl;
+        std::cout << "回復:2" << std::endl;
+        std::cout << "次の行動を入力：";
+        std::cin >> command;
+        
+        Yuusha.perseCommand(static_cast<CharacterClass::kCommandList>(command), Slime);
         std::cout << std::endl;
         Slime.attackTo(Yuusha);
+        std::cout << std::endl;
+
+        Yuusha.showStatus();
+        std::cout << "---------------" << std::endl;
+        Slime.showStatus();
+        std::cout << "---------------" << std::endl;
         std::cout << std::endl;
     }
 }
